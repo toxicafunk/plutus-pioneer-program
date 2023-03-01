@@ -32,6 +32,17 @@ The most relevant directories of this repository are structured as follows:
 
 * In the [code](code/) directory, you'll find the code for each lecture.
 
+## Docker Run
+```bash
+dockers run -i -d --rm brunjlar/plutus-pioneer-program-4:latest
+# or to keep state
+dockers run -i -d brunjlar/plutus-pioneer-program-4:latest
+# or with a PV
+dockers run -it -v /home/enrs/src/crypto/plutus-pioneer-program:/app/plutus-pioneer-program brunjlar/plutus-pioneer-program-4:latest
+# use --name
+dockers run -it --name ppp -v /home/enrs/src/crypto/plutus-pioneer-program:/app/plutus-pioneer-program brunjlar/plutus-pioneer-program-4:latest
+```
+
 ---
 
 This work is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
