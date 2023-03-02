@@ -48,6 +48,14 @@ dockers run -i -d brunjlar/plutus-pioneer-program-4:latest
 dockers run -it -v /home/enrs/src/crypto/plutus-pioneer-program:/app/plutus-pioneer-program brunjlar/plutus-pioneer-program-4:latest
 # use --name
 dockers run -it --name ppp -v /home/enrs/src/crypto/plutus-pioneer-program:/app/plutus-pioneer-program -v /home/enrs/.cabal/packages:/root/.cabal/packages robertinoiog/plutus-pioneer-program-4:latest
+
+```
+
+### Docker interact 
+
+```bash
+docker exec -it ppp bash
+>>>>>>> 1a77ff0 (Docker instructions)
 ```
 
 ---
