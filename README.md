@@ -55,7 +55,6 @@ dockers run -it --name ppp -v /home/enrs/src/crypto/plutus-pioneer-program:/app/
 
 ```bash
 docker exec -it ppp bash
->>>>>>> 1a77ff0 (Docker instructions)
 ```
 
 ---
