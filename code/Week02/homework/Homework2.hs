@@ -3,15 +3,16 @@
 {-# LANGUAGE DeriveGeneric       #-}
 {-# LANGUAGE ImportQualifiedPost #-}
 {-# LANGUAGE NoImplicitPrelude   #-}
+{-# LANGUAGE OverloadedStrings   #-}
 {-# LANGUAGE TemplateHaskell     #-}
 
 module Homework2 where
 
 import qualified Plutus.V2.Ledger.Api as PlutusV2
-import           PlutusTx             (unstableMakeIsData)
-import           PlutusTx.Prelude     (Bool, BuiltinData)
+import           PlutusTx             (compile, unstableMakeIsData)
+import           PlutusTx.Prelude     (Bool, BuiltinData, traceIfFalse, ($), (/=))
 import           Prelude              (undefined)
---import           Utilities            (wrap)
+import           Utilities            (wrap)
 
 ---------------------------------------------------------------------------------------------------
 ----------------------------------- ON-CHAIN / VALIDATOR ------------------------------------------
@@ -26,10 +27,11 @@ PlutusTx.unstableMakeIsData ''MyRedeemer
 {-# INLINABLE mkValidator #-}
 -- Create a validator that unlocks the funds if MyRedemeer's flags are different
 mkValidator :: () -> MyRedeemer -> PlutusV2.ScriptContext -> Bool
-mkValidator = undefined
+mkValidator _ (MyRedeemer f1 f2) _ = traceIfFalse "expected both values to be True" $ f1 /= f2
 
 wrappedVal :: BuiltinData -> BuiltinData -> BuiltinData -> ()
-wrappedVal = undefined
+wrappedVal = wrap mkValidator
+{-# INLINABLE wrappedVal #-}
 
 validator :: PlutusV2.Validator
-validator = undefined
+validator = PlutusV2.mkValidatorScript $$(PlutusTx.compile [|| wrappedVal ||])
