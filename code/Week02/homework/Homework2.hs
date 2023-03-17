@@ -11,7 +11,6 @@ module Homework2 where
 import qualified Plutus.V2.Ledger.Api as PlutusV2
 import           PlutusTx             (compile, unstableMakeIsData)
 import           PlutusTx.Prelude     (Bool, BuiltinData, traceIfFalse, ($), (/=))
-import           Prelude              (undefined)
 import           Utilities            (wrap)
 
 ---------------------------------------------------------------------------------------------------
