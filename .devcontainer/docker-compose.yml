@@ -27,6 +27,7 @@ services:
       - ..:/workspace
       # Mounts cardano node socket
       - node-ipc:/root/.cardano/preview/  # for NETWORK=mainnet or set CARDANO_NODE_SOCKET_PATH explicitly
+      - /home/enrs/.cabal/packages:/root/.cabal/packages
     
     # Overrides default command so things don't shut down after the process ends.
     command: /bin/sh -c "while sleep 1000; do :; done"
