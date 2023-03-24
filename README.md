@@ -75,6 +75,16 @@ dockers run -it --name ppp -p 8000:8000 -v /home/enrs/src/crypto/plutus-pioneer-
 docker exec -it ppp bash
 ```
 
+``` bash
+cardano-cli transaction build \
+    --babbage-era \
+    --testnet-magic 2 \
+    --tx-in $TXIN \
+    --change-address addr_test1qqr585tvlc7ylnqvz8pyqwauzrdu0mxag3m7q56grgmgu7sxu2hyfhlkwuxupa9d5085eunq2qywy7hvmvej456flknswgndm3 \
+    --out-file tx.body
+```
+
+
 ---
 
 This work is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
