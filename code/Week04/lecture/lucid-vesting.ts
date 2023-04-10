@@ -15,11 +15,11 @@ import { secretSeed } from "./seed.ts"
 
 // set blockfrost endpoint
 const lucid = await Lucid.new(
-  new Blockfrost(
-    "https://cardano-preprod.blockfrost.io/api/v0",
-    "insert you own api key here"
-  ),
-  "Preprod"
+    new Blockfrost(
+        "https://cardano-preprod.blockfrost.io/api/v0",
+        "insert you own api key here"
+    ),
+    "Preprod"
 );
 
 // load local stored seed as a wallet into lucid
@@ -57,28 +57,28 @@ const datum: VestingDatum = {
 
 // An asynchronous function that sends an amount of Lovelace to the script with the above datum.
 async function vestFunds(amount: bigint): Promise<TxHash> {
-    const dtm: Datum = Data.to<VestingDatum>(datum,VestingDatum);
+    const dtm: Datum = Data.to<VestingDatum>(datum, VestingDatum);
     const tx = await lucid
-      .newTx()
-      .payToContract(vestingAddress, { inline: dtm }, { lovelace: amount })
-      .complete();
+        .newTx()
+        .payToContract(vestingAddress, { inline: dtm }, { lovelace: amount })
+        .complete();
     const signedTx = await tx.sign().complete();
     const txHash = await signedTx.submit();
     return txHash
 }
 
 async function claimVestedFunds(): Promise<TxHash> {
-    const dtm: Datum = Data.to<VestingDatum>(datum,VestingDatum);
+    const dtm: Datum = Data.to<VestingDatum>(datum, VestingDatum);
     const utxoAtScript: UTxO[] = await lucid.utxosAt(vestingAddress);
     const ourUTxO: UTxO[] = utxoAtScript.filter((utxo) => utxo.datum == dtm);
-    
+
     if (ourUTxO && ourUTxO.length > 0) {
         const tx = await lucid
             .newTx()
             .collectFrom(ourUTxO, Data.void())
             .addSignerKey(beneficiaryPKH)
             .attachSpendingValidator(vestingScript)
-            .validFrom(Date.now()-100000)
+            .validFrom(Date.now() - 100000)
             .complete();
 
         const signedTx = await tx.sign().complete();
