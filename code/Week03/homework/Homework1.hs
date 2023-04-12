@@ -14,7 +14,7 @@ import           Plutus.V2.Ledger.Api (BuiltinData, POSIXTime, PubKeyHash,
 import           Plutus.V2.Ledger.Contexts (txSignedBy)
 import           PlutusTx             (compile, unstableMakeIsData)
 import           PlutusTx.Prelude     (Bool (..), ($), (&&), (||), not, traceIfFalse, BuiltinString)
-import           Utilities            (wrap)
+import           Utilities            (wrapValidator)
 
 ---------------------------------------------------------------------------------------------------
 ----------------------------------- ON-CHAIN / VALIDATOR ------------------------------------------
@@ -68,7 +68,7 @@ mkVestingValidator _dat () _ctx =
 
 {-# INLINABLE  mkWrappedVestingValidator #-}
 mkWrappedVestingValidator :: BuiltinData -> BuiltinData -> BuiltinData -> ()
-mkWrappedVestingValidator = wrap mkVestingValidator
+mkWrappedVestingValidator = wrapValidator mkVestingValidator
 
 validator :: Validator
 validator = mkValidatorScript $$(compile [|| mkWrappedVestingValidator ||])
