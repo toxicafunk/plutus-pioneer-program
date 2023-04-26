@@ -10,7 +10,6 @@ import {
     Address,
     AddressDetails,
     fromHex,
-    sha256,
     C,
 } from "https://deno.land/x/lucid@0.9.1/mod.ts"
 // create a seed.ts file with your seed
